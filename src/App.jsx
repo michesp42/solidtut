@@ -1,6 +1,9 @@
 import { createSignal } from "solid-js";
+import { Routes, Route, A } from "@solidjs/router";
+
 import banner from "./assets/banner.png";
-import Card from "./components/Card";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
 
 function App() {
   const [darkTheme, setDarkTheme] = createSignal(false);
@@ -10,9 +13,9 @@ function App() {
   }
 
   return (
-    <div class="container m-auto">
+    <div class="container m-auto bg">
       <header
-        class="my-4 p-2 text-xl flex items-center gap-4"
+        class="my-4 p-2 text-xl flex items-center gap-4 justify-end"
         classList={{ "bg-neutral-900": darkTheme(), "text-white": darkTheme() }}
       >
         <span
@@ -21,32 +24,18 @@ function App() {
         >
           light_mode
         </span>
-        <h1>Ninja Merch</h1>
+        <h1 class="mr-auto">Ninja Merch</h1>
+
+        <A href="/">Home</A>
+        <A href="/cart">Cart</A>
       </header>
 
       <img class="rounded-md" src={banner} alt="site banner" />
 
-      <div class="grid grid-cols-4 gap-10 my-4">
-        <Card rounded={true} flat={false}>
-          <h2>Ninja Tee</h2>
-          <p>
-            Dolor ducimus porro sed sequi ipsum? Sapiente dolore et minima omnis
-            provident? Inventore ea ducimus.
-          </p>
-
-          <button class="btn">View</button>
-        </Card>
-
-        <Card rounded={false} flat={true}>
-          <h2>Ninja Hoodie</h2>
-          <p>
-            Dolor ducimus porro sed sequi ipsum? Sapiente dolore et minima omnis
-            provident? Inventore ea ducimus.
-          </p>
-
-          <button class="btn">View</button>
-        </Card>
-      </div>
+      <Routes>
+        <Route path="/" component={Home} />
+        <Route path="/cart" component={Cart} />
+      </Routes>
     </div>
   );
 }
